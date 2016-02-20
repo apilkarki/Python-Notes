@@ -1,0 +1,37 @@
+'''Enter some information about yourself'''
+from tkinter import *
+from tkinter import ttk
+
+colors = ('black', 'red', 'yellow', 'blue', 'green', 'orange', 'purple')
+
+class Editor:
+
+    def __init__(self, master):
+
+        self.label = ttk.Label(master, text = 'Doogle')
+        self.label.pack()
+
+        self.text_entry = Entry(master, text = 'Doogle')
+        self.text_entry.pack()
+
+        self.button = ttk.Button(master, text = 'Go!', command = self.change_label)
+        self.button.pack()
+
+        self.combobox = ttk.Combobox(master, values = colors)
+        self.combobox.state(['readonly'])
+        self.combobox.pack()
+        self.combobox.set(value = 'black')
+
+
+    def change_label(self):
+        self.label.config(text = self.text_entry.get())
+        self.label.config(foreground = str(self.combobox.get()))
+
+
+def main():
+    root = Tk()
+    app = Editor(root)
+    root.mainloop()
+
+if __name__ == '__main__':
+    main()
