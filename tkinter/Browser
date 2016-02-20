@@ -1,0 +1,49 @@
+'''
+Trying to pull compressed data from http://www1.ncdc.noaa.gov/pub/data/swdi/stormevents/csvfiles/
+using http and display it using tkinter. Eventually save this data to a mysql database and perform
+some statistical operations on it.
+'''
+
+import urllib.request
+from tkinter import *
+from tkinter import ttk
+
+class Browser:
+
+    def __init__(self, master):
+
+        self.url = Entry(master, width = 50)
+        self.url.pack()
+
+        self.button = ttk.Button(master, 
+                                 text = 'Go!', 
+                                 command = self.get_html)
+        self.button.pack()
+        
+        # Disabled state makes is so users cannot edit the text
+        self.display = Text(master, 
+                            width = 100, 
+                            height = 30, 
+                            state = 'normal', 
+                            wrap = 'word')
+        self.display.pack()
+        
+        self.gzip = ttk.Checkbutton(master, 
+                                    text = "Gzip", 
+                                    onvalue = 'compressed', 
+                                    offvalue = 'uncompressed')
+        self.gzip.pack()
+        
+    def get_html(self):
+        r = urllib.request.urlopen(self.url.get())
+        self.display.insert(END, r.read())
+        
+        
+        
+def main():
+    root = Tk()
+    app = Browser(root)
+    root.mainloop()
+    
+if __name__ == '__main__':
+    main()
