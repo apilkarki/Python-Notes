@@ -1,0 +1,33 @@
+#!/usr/bin/env python
+
+from tkinter import *
+from tkinter import ttk
+
+class HelloApp:
+
+    def __init__(self, master):
+        
+        self.label = ttk.Label(master, text = "Hello, Tkinter!")
+        self.label.grid(row = 0, column = 0, columnspan = 2)
+
+        ttk.Button(master, text = "Texas",
+                   command = self.texas_hello).grid(row = 1, column = 0)
+        
+        ttk.Button(master, text = "Hawaii",
+                   command = self.hawaii_hello).grid(row = 1, column = 1)
+
+    def texas_hello(self):
+        self.label.config(text = "Howdy, Tkinter!")
+
+    def hawaii_hello(self):
+        self.label.config(text = "Aloha, Tkinter!")
+        
+
+def main():
+    root = TK()
+    app = HelloApp:
+    root.mainloop()
+
+# Can be run as a script, or added as part of another python script
+if __name__ == '__main__':
+    main()
