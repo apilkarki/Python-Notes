@@ -25,7 +25,7 @@ class HelloApp:
 
 def main():
     root = TK()
-    app = HelloApp:
+    app = HelloApp(root)
     root.mainloop()
 
 # Can be run as a script, or added as part of another python script
