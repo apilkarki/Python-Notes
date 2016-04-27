@@ -1,0 +1,14 @@
+For Loops
+
+for i in {1..5}
+do
+  echo $i
+done
+
+Suppose you want to create multiple users (user1, user2, user3, etc.) at once.
+
+for i in {1..5}
+do
+  useradd user$i --create-home --skel /etc/skel
+done
+

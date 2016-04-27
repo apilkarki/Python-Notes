@@ -1,0 +1,120 @@
+WORKING WITH FILES AND PERMISSIONS
+
+===============================================================================================================
+Notes about the file system:
+
+Disk-Based vs. Virtual File Systems:
+
+Some files exist in a filesystem that is persistently stored on disk. A reboot will not affect
+the contents in any unusual way, and the user is meant to interact with these files in some way.
+Virtual files and filesystems exist in memory. They are created at boot, modified by the OS at runtime,
+and destroyed at reboot. These filesystems are typically meant for the OS to use to monitor resources.
+
+To see a list of current Virtual Filesystems, execute `df -aT` and look for filesystems that take up 
+zero bytes of disk space. These are virtual filesystems and exist only in memory.
+
+/media 		(disk) used to automatically mount removable media (USB, CDs, etc.).
+/mnt 		used to mount a filesystem temporarily
+
+/var/tmp 	Large temporary files. Survives reboots (as opposed to /tmp)
+
+/usr 		A read only disk based file system meant for OS resources.
+/usr/src 	source code
+/usr/include	header files
+/usr/local	files and programs specific to the host (not included by default kernel)
+/usr/share	files that may be shared between vendors/hosts (documentation, configuration files, etc.).
+
+/sys		Virtual filesystem that contains hotplug hardware devices.
+/tmp		Virtual filesystem where temporary files are stored. These files are deleted upon reboot.
+
+Character vs. Block Devices:
+
+Files in /dev/ are either Character files (accessed serially) or Block files (accessed in random blocks like
+hard drive). You can find out what the file type is by executing `file /dev/$FILENAME`
+
+===============================================================================================================
+Interactive Prompt for mv,rm,cp:
+
+`mv -i`, `rm -i`, `cp -i` all execute and interactive prompt (Are you sure? (y/n)). This may sometimes be 
+desirable as these operations have the possibillity to delete information. You may even consider setting this
+to an alias:
+$ alias rm='rm -i`
+
+===============================================================================================================
+
+FILE ATTRIBUTES:
+
+Not all file system types support file attributes, however XFS should support them all, and EXT4
+should support most of them.
+To view a files attributes `lsattr`. To change a files attributes, use `chattr`, for example, to add 
+the immutable attribute:
+$ touch file.txt
+$ chattr +i file.txt
+$ lsattr file.txt
+----i----------- test.txt
+$ rm file.txt
+rm: remove regular empty file ‘test.txt’? y
+rm: cannot remove ‘test.txt’: Operation not permitted
+
+To remove the immutable attribute
+$ chattr -i file.txt
+
+Attribute			Effect
+a			File can only be appended
+A			Prevents updating the access time
+c (compressed)		File is automatically compressed on the disk. Reading and writing to the file
+			causes the contents to be Decompressed and Compressed accordingly.
+D			Changes on a directory are written synchronously to the disk
+S			Changes in a file are written synchronously to the disk
+i			File cannot be changed, renamed or deleted.
+e (Extent Format)	File uses extents for mapping blocks on the disk.
+s			When a file is deleted, its blocks are zeroed on the the disk.
+u			When a file is deleted, its contents are still saved on disk so they may be recovered.
+
+===============================================================================================================
+To view detailed file system information (access, modify, change times, and inode status) use `stat` command.
+
+Reference:
+http://unix.stackexchange.com/questions/2464/timestamp-modification-time-and-created-time-of-a-file
+
+===============================================================================================================
+SYMBOLIC LINKS:
+
+Soft Link vs Hard Link:
+
+Every file contains metadata about the file (permissions, access times, modification times). This metadata 
+is called the inode. The inode is 128 Bytes. Filenames are store in a directory's inode.
+
+-- Soft links: Used to link files OR directories across filesystems.
+               One file/directory points to another like a link. The files are different, so they have
+               different inodes. Soft links can cross filesystem boundaries.
+
+EX)
+
+$ cd ~
+$ ln -s $(tty) current_tty_soft_link
+$ ll -i
+$ echo "I am going to write to the current pseudo terminal" > current_tty
+
+Further more, note that the file and the link have separate inodes.
+$ ll -i current_tty_soft_link && ll -i $(tty)
+
+To remove a symbolic link
+$ unlink current_tty_soft_link
+
+-- Hard Link:
+
+Can only link files within the same filesystem. Two files share the same file metadata (same inode information) and so for all intense and purposes they are
+both logical representations of the same file on disk.
+
+Trying to make a hard link across filesystems results in the following.
+$ ln $(tty) current_tty
+ln: failed to create hard link ‘current_tty’ => ‘/dev/pts/2’: Invalid cross-device link
+
+DEFAULT PERMISSIONS (umask):
+http://teaching.idallen.com/cst8207/12f/notes/510_umask.html
+
+
+Additional:
+
+Learn how to use `find`

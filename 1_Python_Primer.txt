@@ -1,0 +1,127 @@
+Terminology:
+
+Abstract Data Type: 
+A data type (in Object Oriented Programming) that can only be interacted with predefined methods.
+
+Instantiation:
+Creating an instance of a python object (int, str, etc..) by using the class' constructor for that object.
+I.E., you use a ClASS CONSTRUCTOR to INSTANTIATE an OBJECT from that class.
+
+Member Functions/Methods:
+Functions that Class/Object possesses. Usually of the form:
+
+>>> <Object>.Method(Parameters)
+
+For example the lower() function for strings:
+
+>>> string = "LOUD"
+>>> string.lower()
+
+There are two types of Methods:
+
+  - Mutators : Change some information about the object
+  - Accessors: Access some information about the object, but do not change it.
+
+
+Most Common abstractions for Data Collection include(stacks, queues, lists, trees, maps)
+
+To execute a script and then enter the interpreter
+$ python -i script.py
+
+1) Deleting variables from the name space:
+
+>>> a = "hello"
+>>> id(a)
+
+139712598930744
+>>> del a
+>>> id(a)
+NameError: name 'a' is not defined
+
+2) The way python objects are stored in memory
+id function shows an object's location in memory
+
+>>> a = 1
+
+>>> b = 1
+
+>>> id(a)
+
+10105824
+
+>>> id(b)
+
+10105824
+
+>>> id(a) == id(b)
+
+True
+
+However, if we change one of the values
+
+>>> a = 'dog'
+
+>>> id(a) == id(b)
+
+False
+
+the variable a no longer points to the same place in memory as the variable b.
+
+The exception to this are MUTATOR functions.
+
+>>> a = b = []
+
+>>> id(a) == id(b)
+
+True
+>>> a.append(1)
+
+>>> a
+
+[1]
+
+>>> b
+
+[1]
+
+>>> id(a) == id(b)
+
+True
+
+3) Python's Built in Classes
+
+There are 9 commonly used Python classes/objects. They can be categorized by whether the object is a mutable or immutable data type. Here are the constructors for the Commonly used data types.
+bool(), int(), float(), list(), tuple(), str(), set(), frozenset(), dict()
+
+Mutable Data Type: Information about the object can be changed without having to instantiate an all new data type. The object resides with its new information in the same place in memory.
+Immutable Data Types: You cannot change some information about the object without also instantiating a new object altogether. This new object APPEARS the same, however it resides in a different place in memory.
+
+There is a test for mutable/immutable data types. Don't ask me why it works, it just does.
+
+>>> a = str()
+
+>>> b = str()
+
+>>> id(a) == id(b)
+
+True    # Strings are immutable data types
+
+>>> a = list()
+
+>>> b = list()
+
+>>> id(a) == id(b)
+
+False   # Lists are a mutable data type.
+
+
+4) In depth look at the common data types:
+
+# To convert 'F' from base 16 to base 10
+>>> a = int('F', 16)
+>>> a
+15
+
+
+
+

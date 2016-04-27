@@ -1,0 +1,65 @@
+1) Python lists can be recursive
+
+>>> stuff = [0,1,2,3,4,]
+
+>>> stuff.insert(0,stuff)
+
+>>> stuff
+
+[[...], 0, 1, 2, 3, 4]
+
+>>> stuff[0]
+
+[[...], 0, 1, 2, 3, 4]
+
+>>> stuff[0][0]
+
+[[...], 0, 1, 2, 3, 4]
+
+To get around this ugly output resulting from the recursion, you can use the pprint module:
+
+>>> import pprint
+>>> stuff = ['spam', 'eggs', 'lumberjack', 'knights', 'ni']
+>>> stuff.insert(0, stuff)
+>>> pprint.pprint(stuff)
+[<Recursion on list with id=...>,
+ 'spam',
+ 'eggs',
+ 'lumberjack',
+ 'knights',
+ 'ni']
+
+2) Deleting variables from the name space:
+
+>>> a = "hello"
+>>> id(a)
+
+139712598930744
+>>> del a
+>>> id(a)
+NameError: name 'a' is not defined
+
+3) Removing preceding and Trailing whitespace.
+Suppose we want to extract the hex and binary data below.
+
+>>> test = '64 6e 78 | 100101100 11110'
+>>> test.split('|')
+
+['64 6e 78 ', ' 100101100 11110']
+>>> test.split('|')[0]
+'64 6e 78 '
+
+>>> test.split('|')[1]
+
+' 100101100 11110'
+>>> test.split('|')[0].strip()
+
+'64 6e 78'
+
+>>> test.split('|')[1].strip()
+
+'100101100 11110'
+
+An even more pythonic way to do this is with a single lined list comprehension:
+
+>>> 

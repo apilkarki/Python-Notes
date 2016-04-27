@@ -1,0 +1,70 @@
+BASIC COMMANDS
+
+Show current TTY in use:
+
+$ tty
+/dev/pts/1
+
+To view Uptime, logged in users, and load averages (should be first command you run)
+$w
+
+See who you are logged in as
+$who am i
+$whoami
+
+To see who you originally logged in as (if you su'd)
+$logname
+
+
+See last time a user logged in
+$lastlog
+
+See last user to log in successfully
+$last
+
+Last failed user log in
+$lastb
+
+Last reboot
+$last reboot
+
+To see basic system information
+$uname -a
+
+To see the hostname
+$ hostname
+
+To set the hostname
+$ hostnamectl set-hostname $NEW_FQDN
+
+To display the current date and time
+$ date
+Tue Mar  1 21:16:18 EST 2016
+
+or
+
+$ date +"%a %b %d %H:%M:%S %Z %Y"
+Tue Mar 01 21:39:17 EST 2016
+
+To set the date
+$ date --set "2014-11-25 11:15:00"
+
+Use timedatectl command form more detailed date-time information (including NTP info)
+
+$ timedatectl
+$ timedatectl list-timezones
+$ timedatectl set-time [TIME]
+
+Hardware info with
+$ lscpu
+$ lspci
+$ lsusb
+
+Documentation (man pages) in /usr/share/doc
+
+ALSO:
+
+- Know how to use VIM
+- man pages
+- info pages
+- apropos

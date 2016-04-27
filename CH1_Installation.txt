@@ -1,0 +1,35 @@
+During installation there are several virtual console screens
+
+<CTR>+<ALT>+<F#>
+
+F1 = main installation screen
+F2 = Bash shell (root user)
+F3 = Installation messages that are stored in /tmp/anaconda.log
+F4 = Storage messages that are stored in /tmp/storage.log
+F5 = Program messages that are stored in /tmp/program.log
+F6 = Default graphical installation screen
+
+INSTALLATION LOGS:
+
+After installation has completed, installation logs are kept in the following places.
+
+/root/anaconda-ks.cfg 		(Records Configurations)
+/root/install.log 		(Lists installed packages)
+/root/install.log.syslog 	(General messages)
+/var/log/anaconda.ifcfg.log 	(Network interface logging)
+/var/log/anaconda.log 		(debug log information)
+/var/log/anaconda.syslog 	(Kernel messages)
+/var/log/anaconda.xlog 		(X windows logging)
+/var/log/anaconda.packaging.log (RPM / YUM command generated logs)
+/var/log/anaconda.program.log 	(External program logging)
+/var/log/anaconda.storage.log 	(Storage module logging)
+/var/log/anaconda.yum.log 	(YUM package logging)
+
+BASIC PARTITION/LVM SETUP:
+
+(partition name, filesystem type, capacity, LVM Volume Group)
+
+(/boot, xfs, 0.5GB, Standard Partition)
+(/, xfs, 10GB, VG00)
+(/home, xfs, 1GB, VG00)
+(/swap, xfs, 1GB, VG00)
